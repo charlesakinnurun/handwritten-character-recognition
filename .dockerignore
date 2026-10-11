@@ -1,0 +1,47 @@
+# Version control and CI
+.git
+.github
+.gitignore
+
+# Python caches / build
+__pycache__
+*.py[cod]
+*.egg-info
+build
+dist
+.venv
+venv
+
+# Tooling caches
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.coverage
+htmlcov
+coverage.xml
+
+# Data & artifacts (mounted at runtime instead)
+data
+models
+runs
+artifacts
+reports
+experiments
+
+# Notebooks
+notebooks
+.ipynb_checkpoints
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+
+# Docs & dev-only files
+docs
+tests
+*.md
+!README.md
+Makefile
+docker-compose.yml
+.pre-commit-config.yaml
