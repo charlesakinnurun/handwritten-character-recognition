@@ -1,0 +1,64 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Tooling caches ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# ---- Project artifacts ----
+# Datasets are never committed. See docs/data.md for acquisition instructions.
+data/*
+!data/.gitkeep
+
+# Model weights and training artifacts are never committed by default.
+models/*
+!models/.gitkeep
+runs/
+artifacts/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+
+# Experiment / evaluation outputs
+reports/
+experiments/
+
+# ---- Secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Notebooks ----
+.ipynb_checkpoints/
+
+# ---- Editors / OS ----
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*~
