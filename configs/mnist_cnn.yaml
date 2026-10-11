@@ -1,0 +1,62 @@
+# -----------------------------------------------------------------------------
+# MNIST - CNN baseline experiment.
+# Reproduces the "baseline" row in docs/experiments.md.
+# -----------------------------------------------------------------------------
+experiment:
+  name: mnist_cnn
+  output_dir: runs
+  notes: "Compact CNN baseline on MNIST digits."
+
+seed: 42
+
+data:
+  name: mnist
+  root: data
+  download: true
+  val_split: 0.1
+  batch_size: 128
+  eval_batch_size: 512
+  num_workers: 0
+  max_train_samples: null
+  max_val_samples: null
+  max_test_samples: null
+  cache: true
+
+preprocessing:
+  image_size: 28
+  invert: auto
+  normalize: true
+  mean: 0.1307
+  std: 0.3081
+  crop_to_content: false
+  threshold: null
+  denoise: false
+
+model:
+  name: cnn_baseline
+  num_classes: null          # inferred from the dataset at runtime
+  dropout: 0.25
+  channels: [32, 64]
+  hidden_dim: 128
+
+training:
+  epochs: 5
+  optimizer: adam
+  lr: 0.001
+  weight_decay: 0.0001
+  momentum: 0.9
+  scheduler: none
+  step_size: 3
+  gamma: 0.5
+  patience: 3
+  early_stopping: true
+  grad_clip: null
+  mixed_precision: auto
+  device: auto
+  label_smoothing: 0.0
+  monitor: val_loss
+  augment: false
+  augment_rotation: 10.0
+  augment_translate: 0.1
+  augment_scale: 0.1
+  log_every: 100
