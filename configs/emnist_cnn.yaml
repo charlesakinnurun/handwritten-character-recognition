@@ -1,0 +1,63 @@
+# -----------------------------------------------------------------------------
+# EMNIST Balanced - CNN on 47 classes (0-9, A-Z uppercase, 11 lowercase).
+# Uses the local extracted corpus if present, otherwise downloads via torchvision.
+# On CPU this is a longer run; cap samples for a quick verification pass.
+# -----------------------------------------------------------------------------
+experiment:
+  name: emnist_balanced_cnn
+  output_dir: runs
+  notes: "CNN on EMNIST Balanced (47 classes)."
+
+seed: 42
+
+data:
+  name: emnist_balanced
+  root: data
+  download: true
+  val_split: 0.1
+  batch_size: 256
+  eval_batch_size: 1024
+  num_workers: 0
+  max_train_samples: null
+  max_val_samples: null
+  max_test_samples: null
+  cache: true
+
+preprocessing:
+  image_size: 28
+  invert: auto
+  normalize: true
+  mean: 0.1307
+  std: 0.3081
+  crop_to_content: false
+  threshold: null
+  denoise: false
+
+model:
+  name: cnn_improved
+  num_classes: null
+  dropout: 0.3
+  channels: [32, 64, 128]
+  hidden_dim: 256
+
+training:
+  epochs: 8
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.0005
+  momentum: 0.9
+  scheduler: cosine
+  step_size: 3
+  gamma: 0.5
+  patience: 4
+  early_stopping: true
+  grad_clip: 1.0
+  mixed_precision: auto
+  device: auto
+  label_smoothing: 0.05
+  monitor: val_loss
+  augment: true
+  augment_rotation: 10.0
+  augment_translate: 0.1
+  augment_scale: 0.1
+  log_every: 50
