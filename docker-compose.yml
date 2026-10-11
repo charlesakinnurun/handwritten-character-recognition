@@ -1,0 +1,30 @@
+# Local, production-style compose setup for the inference API.
+#
+#   docker compose up --build
+#   curl http://localhost:8000/health
+#
+# The trained artifact is mounted read-only from ./models. Train one first with
+# `hi-train --config configs/mnist_cnn.yaml` (or the equivalent python -m command).
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: handwriting-intelligence:latest
+    ports:
+      - "8000:8000"
+    environment:
+      HWI_ARTIFACT_PATH: /app/models/mnist_cnn/artifact.pt
+      HWI_LOG_LEVEL: INFO
+      HWI_LOG_FORMAT: json
+      HWI_MAX_UPLOAD_BYTES: "5242880"
+      HWI_MAX_BATCH_SIZE: "32"
+    volumes:
+      - ./models:/app/models:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
+    restart: unless-stopped
